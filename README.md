@@ -1,4 +1,4 @@
 MXLCalendarManager
 ==================
 
-A set of classes used to parse and handle iCalendar (.ICS) files
+A set of classes to parse and handle iCalendar (.ICS) files
