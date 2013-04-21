@@ -1,7 +1,7 @@
 MXLCalendarManager
 ==================
 
-A set of classes to parse and handle iCalendar (.ICS) files
+A set of classes to parse and handle iCalendar (.ICS) files. The framework can parse through an iCalendar file and extract all VEVENT objects into MXLCalendarEvent items. Then, by running the [checkDate:](https://github.com/KiranPanesar/MXLCalendarManager/blob/master/MXLCalendarManager/MXLCalendarEvent.h#L97) or [checkDay:month:year](https://github.com/KiranPanesar/MXLCalendarManager/blob/master/MXLCalendarManager/MXLCalendarEvent.h#L96) you can see if the event occurs on a certain day.
 
 Licensing
 =========

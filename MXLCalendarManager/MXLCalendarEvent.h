@@ -95,5 +95,6 @@ typedef enum {
 
 -(BOOL)checkDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
 -(BOOL)checkDate:(NSDate *)date;
+
 -(BOOL)exceptionOnDate:(NSDate *)date;
 @end
