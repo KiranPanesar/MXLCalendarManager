@@ -25,7 +25,29 @@
 
 #import "MXLCalendarManager.h"
 
+@interface MXLCalendarManager ()
+
+-(void)parseICSString:(NSString *)icsString withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback;
+
+@end
+
 @implementation MXLCalendarManager
+
+-(void)scanICSFileAtRemoteURL:(NSURL *)fileURL withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *downloadError;
+        NSData *fileData = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&downloadError];
+        
+        if (downloadError) {
+            callback(nil, downloadError);
+            return;
+        }
+        
+        NSString *fileString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+        [self parseICSString:fileString withCompletionHandler:callback];
+    });
+    
+}
 
 -(void)scanICSFileAtLocalPath:(NSString *)filePath withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
     NSError *fileError;
@@ -36,8 +58,14 @@
         return;
     }
     
+    [self parseICSString:calendarFile withCompletionHandler:callback];
+    
+}
+
+-(void)parseICSString:(NSString *)icsString withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
+    
     // Pull out each line from the calendar file
-    NSMutableArray *eventsArray = [NSMutableArray arrayWithArray:[calendarFile componentsSeparatedByString:@"BEGIN:VEVENT"]];
+    NSMutableArray *eventsArray = [NSMutableArray arrayWithArray:[icsString componentsSeparatedByString:@"BEGIN:VEVENT"]];
     
     // Remove the first item (that's just all the stuff before the first VEVENT)
     if ([eventsArray count] > 0)
@@ -116,7 +144,7 @@
         [eventScanner scanUpToString:[NSString stringWithFormat:@"RECURRENCE-ID;TZID=%@:", timezoneIDString] intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&recurrenceIDString];
         recurrenceIDString = [[recurrenceIDString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"RECURRENCE-ID;TZID=%@:", timezoneIDString] withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-
+        
         // Extract the created datetime
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:@"CREATED:" intoString:nil];
@@ -141,19 +169,19 @@
         [eventScanner scanUpToString:@"LOCATION:" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&locationString];
         locationString = [[[locationString stringByReplacingOccurrencesOfString:@"LOCATION:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-
+        
         // Extract the event sequence
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:@"SEQUENCE:" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&sequenceString];
         sequenceString = [[[sequenceString stringByReplacingOccurrencesOfString:@"SEQUENCE:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-
+        
         // Extract the event status
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:@"STATUS:" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&statusString];
         statusString = [[[statusString stringByReplacingOccurrencesOfString:@"STATUS:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-
+        
         // Extract the event summary
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:@"SUMMARY:" intoString:nil];
@@ -178,10 +206,10 @@
         [eventScanner scanUpToString:@"\n" intoString:&exceptionRuleString];
         exceptionRuleString = [[[exceptionRuleString stringByReplacingOccurrencesOfString:@"EXRULE:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         
-        // Set up scanner for 
+        // Set up scanner for
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:@"EXDATE;" intoString:nil];
-
+        
         while (![eventScanner isAtEnd]) {
             [eventScanner scanUpToString:@":" intoString:nil];
             NSString *exceptionString = [[NSString alloc] init];
