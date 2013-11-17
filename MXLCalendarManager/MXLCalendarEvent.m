@@ -26,6 +26,7 @@
 //  THE SOFTWARE.
 
 #import "MXLCalendarEvent.h"
+#import <EventKit/EventKit.h>
 
 #define DAILY_FREQUENCY @"DAILY"
 #define WEEKLY_FREQUENCY @"WEEKLY"
@@ -46,13 +47,13 @@
 
     if (self) {
         calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        self.timeZone = [NSTimeZone timeZoneWithName:timezoneID];
-        [calendar setTimeZone:self.timeZone];
-        
+
         // Set up the shared NSDateFormatter instance to convert the strings to NSDate objects
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyyMMdd HHmmss"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
+        [dateFormatter setDateFormat:@"yyyyMMdd HHmmss"];
+        
         // Set the date objects to the converted NSString objects
         self.eventStartDate = [self dateFromString:startString];
         
@@ -656,8 +657,37 @@
     }
     
     return NO;
-
 }
+
+- (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                                                   fromDate:self.eventStartDate];
+    
+    NSDateComponents *endComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                                                      fromDate:self.eventEndDate];
+    
+    NSDateComponents *selectedDayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                                                              fromDate:date];
+    
+    [components setDay:[selectedDayComponents day]];
+    [components setMonth:[selectedDayComponents month]];
+    [components setYear:[selectedDayComponents year]];
+    
+    [endComponents setDay:[selectedDayComponents day]];
+    [endComponents setMonth:[selectedDayComponents month]];
+    [endComponents setYear:[selectedDayComponents year]];
+
+    EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+    [event setTitle:[self eventSummary]];
+    [event setNotes:[self eventDescription]];
+    [event setLocation:[self eventLocation]];
+    
+    [event setStartDate:[[NSCalendar currentCalendar] dateFromComponents:components]];
+    [event setEndDate:[[NSCalendar currentCalendar] dateFromComponents:endComponents]];
+    
+    return event;
+}
+
 
 -(NSString *)dayOfWeekFromInteger:(NSInteger)day {
     switch (day) {

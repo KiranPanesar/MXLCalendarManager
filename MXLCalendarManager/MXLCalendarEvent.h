@@ -25,6 +25,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class EKEvent;
+@class EKEventStore;
+
 typedef enum {
     MXLCalendarEventRuleTypeRepetition,
     MXLCalendarEventRuleTypeException
@@ -83,7 +86,6 @@ typedef enum {
 @property (strong, nonatomic) NSString *eventDescription;
 @property (strong, nonatomic) NSString *eventLocation;
 @property (strong, nonatomic) NSString *eventStatus;
-@property (strong, nonatomic) NSTimeZone *timeZone;
 
 @property (strong, nonatomic) NSString *rruleString;
 
@@ -97,4 +99,7 @@ typedef enum {
 -(BOOL)checkDate:(NSDate *)date;
 
 -(BOOL)exceptionOnDate:(NSDate *)date;
+
+- (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore;
+
 @end
