@@ -30,6 +30,7 @@
 
 @interface MXLCalendarManager : NSObject
 
+-(void)scanICSFileAtRemoteURL:(NSURL *)fileURL withCompletionHandler:(void (^)(MXLCalendar *calendar, NSError *error))callback;
 -(void)scanICSFileAtLocalPath:(NSString *)filePath withCompletionHandler:(void (^)(MXLCalendar *calendar, NSError *error))callback;
 
 @end

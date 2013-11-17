@@ -33,12 +33,12 @@
     
     NSCalendar *calendar;
 }
-
+@property (strong, nonatomic) NSTimeZone *timeZone;
 @property (strong, nonatomic) NSMutableArray *events;
 
 - (void)addEvent:(MXLCalendarEvent *)event;
 
--(void)addEvent:(MXLCalendarEvent *)event onDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
+- (void)addEvent:(MXLCalendarEvent *)event onDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
 - (void)addEvent:(MXLCalendarEvent *)event onDateString:(NSString *)dateString;
 - (void)addEvent:(MXLCalendarEvent *)event onDate:(NSDate *)date;
 

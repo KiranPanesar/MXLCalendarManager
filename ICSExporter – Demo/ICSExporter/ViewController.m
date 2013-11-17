@@ -11,6 +11,8 @@
 #import "MXLCalendarManager.h"
 #import "MBProgressHUD.h"
 
+#import "NSTimeZone+ProperAbbreviation.h"
+
 @interface ViewController ()
 
 @end
@@ -137,8 +139,8 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm:ss"];
-    
-    NSString *string = [NSString stringWithFormat:@"%@ – %@", [[currentEvents objectAtIndex:indexPath.row] eventSummary], [dateFormatter stringFromDate:[[currentEvents objectAtIndex:indexPath.row] eventStartDate]]];
+
+    NSString *string = [NSString stringWithFormat:@"%@ – %@ (%@)", [[currentEvents objectAtIndex:indexPath.row] eventSummary], [dateFormatter stringFromDate:[[currentEvents objectAtIndex:indexPath.row] eventStartDate]],  [[dateFormatter timeZone] properAbbreviation]];
     [cell.textLabel setText:string];
     
     return cell;

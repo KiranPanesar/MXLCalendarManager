@@ -45,7 +45,7 @@
 -(void)addEvent:(MXLCalendarEvent *)event onDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyddMM"];
-    
+
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit| NSYearCalendarUnit fromDate:[NSDate date]];
     
     [components setDay:day];
@@ -56,7 +56,6 @@
 }
 
 -(void)addEvent:(MXLCalendarEvent *)event onDateString:(NSString *)dateString {
-    
     // Check if the event has already been logged today
     for (MXLCalendarEvent *currentEvent in [daysOfEvents objectForKey:dateString]) {
         if ([currentEvent.eventUniqueID isEqualToString:event.eventUniqueID])

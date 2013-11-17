@@ -34,19 +34,25 @@
 @implementation MXLCalendarManager
 
 -(void)scanICSFileAtRemoteURL:(NSURL *)fileURL withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *downloadError;
         NSData *fileData = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&downloadError];
-        
+
         if (downloadError) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             callback(nil, downloadError);
             return;
         }
         
-        NSString *fileString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-        [self parseICSString:fileString withCompletionHandler:callback];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            NSString *fileString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+            [self parseICSString:fileString withCompletionHandler:callback];
+        });        
     });
-    
+
 }
 
 -(void)scanICSFileAtLocalPath:(NSString *)filePath withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
@@ -63,17 +69,28 @@
 }
 
 -(void)parseICSString:(NSString *)icsString withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
-    
+
     // Pull out each line from the calendar file
     NSMutableArray *eventsArray = [NSMutableArray arrayWithArray:[icsString componentsSeparatedByString:@"BEGIN:VEVENT"]];
+
+    MXLCalendar *calendar = [[MXLCalendar alloc] init];
+
+    NSString *calendarString;
     
     // Remove the first item (that's just all the stuff before the first VEVENT)
-    if ([eventsArray count] > 0)
+    if ([eventsArray count] > 0) {
+        NSScanner *scanner = [NSScanner scannerWithString:[eventsArray objectAtIndex:0]];
+        [scanner scanUpToString:@"TZID:" intoString:nil];
+
+        [scanner scanUpToString:@"\n" intoString:&calendarString];
+        
+        calendarString = [[[calendarString stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""] stringByReplacingOccurrencesOfString:@"TZID:" withString:@""];
+        
         [eventsArray removeObjectAtIndex:0];
+    }
     
     NSScanner *eventScanner;
     
-    MXLCalendar *calendar = [[MXLCalendar alloc] init];
     
     // For each event, extract the data
     for (NSString *event in eventsArray) {
@@ -236,7 +253,7 @@
                                                               recurrenceRules:repetitionString
                                                                exceptionDates:exceptionDates
                                                                 exceptionRule:exceptionRuleString
-                                                           timeZoneIdentifier:timezoneIDString];
+                                                           timeZoneIdentifier:calendarString];
         [calendar addEvent:event];
         
     }

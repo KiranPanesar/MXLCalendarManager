@@ -28,14 +28,16 @@
 		6B54AADD171B232E00E01601 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B54AADC171B232E00E01601 /* QuartzCore.framework */; };
 		6B5E9CC91715B4E400679C47 /* eventlist.ics in Resources */ = {isa = PBXBuildFile; fileRef = 6B5E9CC81715B4E400679C47 /* eventlist.ics */; };
 		6B5E9CCB1715B5B600679C47 /* gazette.ics in Resources */ = {isa = PBXBuildFile; fileRef = 6B5E9CCA1715B5B600679C47 /* gazette.ics */; };
-		6B6418B117230BE900097EC0 /* MXLCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6418AC17230BE900097EC0 /* MXLCalendar.m */; };
-		6B6418B217230BE900097EC0 /* MXLCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6418AE17230BE900097EC0 /* MXLCalendarEvent.m */; };
-		6B6418B317230BE900097EC0 /* MXLCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6418B017230BE900097EC0 /* MXLCalendarManager.m */; };
 		6B9B7418171C67C100235765 /* NSDate+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B740F171C67C100235765 /* NSDate+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B9B7419171C67C100235765 /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B7411171C67C100235765 /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B9B741A171C67C100235765 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B7413171C67C100235765 /* UIColor+expanded.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B9B741B171C67C100235765 /* UIView+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B7415171C67C100235765 /* UIView+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B9B741C171C67C100235765 /* VRGCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B7417171C67C100235765 /* VRGCalendarView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6B9BDFF8183912420009C337 /* MXLCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BDFF1183912420009C337 /* MXLCalendar.m */; };
+		6B9BDFF9183912420009C337 /* MXLCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BDFF3183912420009C337 /* MXLCalendarEvent.m */; };
+		6B9BDFFA183912420009C337 /* MXLCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BDFF5183912420009C337 /* MXLCalendarManager.m */; };
+		6B9BDFFB183912420009C337 /* NSTimeZone+ProperAbbreviation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BDFF7183912420009C337 /* NSTimeZone+ProperAbbreviation.m */; };
+		6B9BDFFD183912750009C337 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B9BDFFC183912750009C337 /* EventKit.framework */; };
 		6BF20BDF17204014006FF53F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF20BDE17204014006FF53F /* MBProgressHUD.m */; };
 		6BF20BE0172040AA006FF53F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF20BDE17204014006FF53F /* MBProgressHUD.m */; };
 		6BF20BE2172056EF006FF53F /* basic.ics in Resources */ = {isa = PBXBuildFile; fileRef = 6BF20BE1172056EF006FF53F /* basic.ics */; };
@@ -79,12 +81,6 @@
 		6B54AADC171B232E00E01601 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B5E9CC81715B4E400679C47 /* eventlist.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eventlist.ics; sourceTree = "<group>"; };
 		6B5E9CCA1715B5B600679C47 /* gazette.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gazette.ics; sourceTree = "<group>"; };
-		6B6418AB17230BE900097EC0 /* MXLCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendar.h; sourceTree = "<group>"; };
-		6B6418AC17230BE900097EC0 /* MXLCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendar.m; sourceTree = "<group>"; };
-		6B6418AD17230BE900097EC0 /* MXLCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarEvent.h; sourceTree = "<group>"; };
-		6B6418AE17230BE900097EC0 /* MXLCalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarEvent.m; sourceTree = "<group>"; };
-		6B6418AF17230BE900097EC0 /* MXLCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarManager.h; sourceTree = "<group>"; };
-		6B6418B017230BE900097EC0 /* MXLCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarManager.m; sourceTree = "<group>"; };
 		6B9B740E171C67C100235765 /* NSDate+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+convenience.h"; sourceTree = "<group>"; };
 		6B9B740F171C67C100235765 /* NSDate+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+convenience.m"; sourceTree = "<group>"; };
 		6B9B7410171C67C100235765 /* NSMutableArray+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+convenience.h"; sourceTree = "<group>"; };
@@ -95,6 +91,15 @@
 		6B9B7415171C67C100235765 /* UIView+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+convenience.m"; sourceTree = "<group>"; };
 		6B9B7416171C67C100235765 /* VRGCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VRGCalendarView.h; sourceTree = "<group>"; };
 		6B9B7417171C67C100235765 /* VRGCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VRGCalendarView.m; sourceTree = "<group>"; };
+		6B9BDFF0183912420009C337 /* MXLCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendar.h; sourceTree = "<group>"; };
+		6B9BDFF1183912420009C337 /* MXLCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendar.m; sourceTree = "<group>"; };
+		6B9BDFF2183912420009C337 /* MXLCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarEvent.h; sourceTree = "<group>"; };
+		6B9BDFF3183912420009C337 /* MXLCalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarEvent.m; sourceTree = "<group>"; };
+		6B9BDFF4183912420009C337 /* MXLCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarManager.h; sourceTree = "<group>"; };
+		6B9BDFF5183912420009C337 /* MXLCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarManager.m; sourceTree = "<group>"; };
+		6B9BDFF6183912420009C337 /* NSTimeZone+ProperAbbreviation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimeZone+ProperAbbreviation.h"; sourceTree = "<group>"; };
+		6B9BDFF7183912420009C337 /* NSTimeZone+ProperAbbreviation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+ProperAbbreviation.m"; sourceTree = "<group>"; };
+		6B9BDFFC183912750009C337 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		6BF20BDD17204014006FF53F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		6BF20BDE17204014006FF53F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		6BF20BE1172056EF006FF53F /* basic.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic.ics; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B9BDFFD183912750009C337 /* EventKit.framework in Frameworks */,
 				6B54AADD171B232E00E01601 /* QuartzCore.framework in Frameworks */,
 				6B54AADB171B232800E01601 /* MapKit.framework in Frameworks */,
 				6B508BDD171489940080AB4D /* UIKit.framework in Frameworks */,
@@ -148,6 +154,7 @@
 		6B508BDB171489940080AB4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B9BDFFC183912750009C337 /* EventKit.framework */,
 				6B54AADC171B232E00E01601 /* QuartzCore.framework */,
 				6B54AADA171B232800E01601 /* MapKit.framework */,
 				6B508BDC171489940080AB4D /* UIKit.framework */,
@@ -167,7 +174,6 @@
 				6B508BF5171489940080AB4D /* ViewController.m */,
 				6B508BF7171489940080AB4D /* ViewController_iPhone.xib */,
 				6B508BFA171489940080AB4D /* ViewController_iPad.xib */,
-				6B6418AA17230BE900097EC0 /* MXLCalendarManager */,
 				6B508BE3171489940080AB4D /* Supporting Files */,
 			);
 			path = ICSExporter;
@@ -176,6 +182,7 @@
 		6B508BE3171489940080AB4D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6B9BDFEF183912420009C337 /* MXLCalendarManager */,
 				6BF20BDD17204014006FF53F /* MBProgressHUD.h */,
 				6BF20BDE17204014006FF53F /* MBProgressHUD.m */,
 				6B9B740D171C67C100235765 /* VRGCalendarView */,
@@ -212,20 +219,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		6B6418AA17230BE900097EC0 /* MXLCalendarManager */ = {
-			isa = PBXGroup;
-			children = (
-				6B6418AB17230BE900097EC0 /* MXLCalendar.h */,
-				6B6418AC17230BE900097EC0 /* MXLCalendar.m */,
-				6B6418AD17230BE900097EC0 /* MXLCalendarEvent.h */,
-				6B6418AE17230BE900097EC0 /* MXLCalendarEvent.m */,
-				6B6418AF17230BE900097EC0 /* MXLCalendarManager.h */,
-				6B6418B017230BE900097EC0 /* MXLCalendarManager.m */,
-			);
-			name = MXLCalendarManager;
-			path = ../../MXLCalendarManager;
-			sourceTree = "<group>";
-		};
 		6B9B740D171C67C100235765 /* VRGCalendarView */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +234,22 @@
 				6B9B7417171C67C100235765 /* VRGCalendarView.m */,
 			);
 			path = VRGCalendarView;
+			sourceTree = "<group>";
+		};
+		6B9BDFEF183912420009C337 /* MXLCalendarManager */ = {
+			isa = PBXGroup;
+			children = (
+				6B9BDFF0183912420009C337 /* MXLCalendar.h */,
+				6B9BDFF1183912420009C337 /* MXLCalendar.m */,
+				6B9BDFF2183912420009C337 /* MXLCalendarEvent.h */,
+				6B9BDFF3183912420009C337 /* MXLCalendarEvent.m */,
+				6B9BDFF4183912420009C337 /* MXLCalendarManager.h */,
+				6B9BDFF5183912420009C337 /* MXLCalendarManager.m */,
+				6B9BDFF6183912420009C337 /* NSTimeZone+ProperAbbreviation.h */,
+				6B9BDFF7183912420009C337 /* NSTimeZone+ProperAbbreviation.m */,
+			);
+			name = MXLCalendarManager;
+			path = ../../MXLCalendarManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,17 +367,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BF20BE0172040AA006FF53F /* MBProgressHUD.m in Sources */,
+				6B9BDFF8183912420009C337 /* MXLCalendar.m in Sources */,
 				6B508BE9171489940080AB4D /* main.m in Sources */,
 				6B508BED171489940080AB4D /* AppDelegate.m in Sources */,
 				6B508BF6171489940080AB4D /* ViewController.m in Sources */,
+				6B9BDFFA183912420009C337 /* MXLCalendarManager.m in Sources */,
 				6B9B7418171C67C100235765 /* NSDate+convenience.m in Sources */,
 				6B9B7419171C67C100235765 /* NSMutableArray+convenience.m in Sources */,
 				6B9B741A171C67C100235765 /* UIColor+expanded.m in Sources */,
+				6B9BDFF9183912420009C337 /* MXLCalendarEvent.m in Sources */,
 				6B9B741B171C67C100235765 /* UIView+convenience.m in Sources */,
+				6B9BDFFB183912420009C337 /* NSTimeZone+ProperAbbreviation.m in Sources */,
 				6B9B741C171C67C100235765 /* VRGCalendarView.m in Sources */,
-				6B6418B117230BE900097EC0 /* MXLCalendar.m in Sources */,
-				6B6418B217230BE900097EC0 /* MXLCalendarEvent.m in Sources */,
-				6B6418B317230BE900097EC0 /* MXLCalendarManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +506,7 @@
 				GCC_PREFIX_HEADER = "ICSExporter/ICSExporter-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "ICSExporter/ICSExporter-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -514,7 +524,7 @@
 				GCC_PREFIX_HEADER = "ICSExporter/ICSExporter-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "ICSExporter/ICSExporter-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

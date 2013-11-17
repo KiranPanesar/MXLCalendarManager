@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DDD7E213-50F3-4FDD-AB42-ECAB4DA1BDEB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ICSExporter</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C555B6D0-1B1D-4060-9104-26ACA695AC38</key>
+		<string>https://github.com/KiranPanesar/MXLCalendarManager.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ICSExporter – Demo/ICSExporter.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C555B6D0-1B1D-4060-9104-26ACA695AC38</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/KiranPanesar/MXLCalendarManager.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C555B6D0-1B1D-4060-9104-26ACA695AC38</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C555B6D0-1B1D-4060-9104-26ACA695AC38</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MXLCalendarManager</string>
+		</dict>
+	</array>
+</dict>
+</plist>
