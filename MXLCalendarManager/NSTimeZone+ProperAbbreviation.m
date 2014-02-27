@@ -15,6 +15,16 @@
     if ([[self abbreviation] isEqualToString:@"GMT"] || [[self abbreviation] isEqualToString:@"BST"]) {
         return [self abbreviation];
     }
+
+    NSArray *timezoneNames = [NSTimeZone knownTimeZoneNames];
+	for (NSString *name in
+		 [timezoneNames sortedArrayUsingSelector:@selector(compare:)])
+	{
+		NSLog(@"%@",name);
+	}
+    
+    NSDictionary *abbrev = [NSTimeZone abbreviationDictionary];
+    NSLog(@"%@", abbrev);
     
     return [[[NSTimeZone abbreviationDictionary] allKeysForObject:self.name] objectAtIndex:0];
 }
