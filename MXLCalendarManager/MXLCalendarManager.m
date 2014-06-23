@@ -80,7 +80,7 @@
         NSString *uri, *attributes;
         [eventScanner scanUpToString:@":" intoString:&attributes];
         [eventScanner scanUpToString:@"\n" intoString:&uri];
-        attendee.uri = uri;
+        attendee.uri = [uri substringFromIndex:1];
 
         eventScanner = [NSScanner scannerWithString:attributes];
         [eventScanner scanUpToString:@"ROLE=" intoString:nil];
