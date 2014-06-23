@@ -152,6 +152,11 @@
     NSLog(@"Descr: %@", currentEvent.eventSummary);
     NSLog(@"Start: %@", currentEvent.eventStartDate);
     NSLog(@"End  : %@", currentEvent.eventEndDate);
+    for (int i = 0; i < currentEvent.attendees.count; i++)
+    {
+        MXLCalendarAttendee *attendee = currentEvent.attendees[i];
+        NSLog(@"Attendee %i, %@", i+1, attendee.commonName);
+    }
 }
 
 - (void)viewDidLoad
@@ -170,7 +175,8 @@
     
     MXLCalendarManager *calendarManager = [[MXLCalendarManager alloc] init];
     
-    [calendarManager scanICSFileAtLocalPath:[[NSBundle mainBundle] pathForResource:@"basic" ofType:@"ics"] withCompletionHandler:^(MXLCalendar *calendar, NSError *error) {
+    [calendarManager scanICSFileAtLocalPath:[[NSBundle mainBundle] pathForResource:@"basic" ofType:@"ics"]
+                      withCompletionHandler:^(MXLCalendar *calendar, NSError *error) {
         currentCalendar = [[MXLCalendar alloc] init];
         currentCalendar = calendar;
         

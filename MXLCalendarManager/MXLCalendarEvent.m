@@ -41,7 +41,21 @@
 
 @implementation MXLCalendarEvent
 
--(id)initWithStartDate:(NSString *)startString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID {
+-(id)initWithStartDate:(NSString *)startString
+               endDate:(NSString *)endString
+             createdAt:(NSString *)createdString
+          lastModified:(NSString *)lastModifiedString
+              uniqueID:(NSString *)uniqueID
+          recurrenceID:(NSString *)recurrenceID
+               summary:(NSString *)summary
+           description:(NSString *)description
+              location:(NSString *)location
+                status:(NSString *)status
+       recurrenceRules:(NSString *)recurRules
+        exceptionDates:(NSMutableArray *)exceptionDates
+         exceptionRule:(NSString *)exceptionRule
+    timeZoneIdentifier:(NSString *)timezoneID
+             attendees:(NSArray<MXLCalendarAttendee> *)attendees {
     
     self = [super self];
 
@@ -73,6 +87,7 @@
         self.eventDescription = description;
         self.eventLocation = location;
         self.eventStatus = status;
+        self.attendees = attendees;
         
     }
     return self;
@@ -87,7 +102,8 @@
     return date;
 }
 
--(void)parseRules:(NSString *)rule forType:(MXLCalendarEventRuleType)type {
+-(void)parseRules:(NSString *)rule
+          forType:(MXLCalendarEventRuleType)type {
     
     if (!rule)
         return;
@@ -245,7 +261,9 @@
     }
 }
 
--(BOOL)checkDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
+-(BOOL)checkDay:(NSInteger)day
+          month:(NSInteger)month
+           year:(NSInteger)year {
     NSDateComponents *components = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit| NSYearCalendarUnit fromDate:[NSDate date]];
 
     [components setDay:day];
@@ -659,7 +677,8 @@
     return NO;
 }
 
-- (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore {
+- (EKEvent *)convertToEKEventOnDate:(NSDate *)date
+                              store:(EKEventStore *)eventStore {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
                                                                    fromDate:self.eventStartDate];
     

@@ -68,10 +68,46 @@
     
 }
 
+-(MXLCalendarAttendee *) createAttendee:(NSString *) string {
+    if (string) {
+
+
+        MXLCalendarAttendee *attendee = MXLCalendarAttendee.alloc.init;
+        NSString *holder;
+        NSScanner *eventScanner;
+        eventScanner = [NSScanner scannerWithString:string];
+
+        NSString *uri, *attributes;
+        [eventScanner scanUpToString:@":" intoString:&attributes];
+        [eventScanner scanUpToString:@"\n" intoString:&uri];
+        attendee.uri = uri;
+
+        eventScanner = [NSScanner scannerWithString:attributes];
+        [eventScanner scanUpToString:@"ROLE=" intoString:nil];
+        [eventScanner scanUpToString:@";" intoString:&holder];
+        NSString *role = [holder stringByReplacingOccurrencesOfString:@"ROLE=" withString:@""];
+        attendee.role = (Role) [NSValue value:&role withObjCType:@encode(Role)];
+
+        eventScanner = [NSScanner scannerWithString:attributes];
+        [eventScanner scanUpToString:@"CN=" intoString:nil];
+        [eventScanner scanUpToString:@";" intoString:&holder];
+        NSString *cn = [holder stringByReplacingOccurrencesOfString:@"CN=" withString:@""];
+        attendee.commonName = cn;
+
+        return attendee;
+    } else {
+        return nil;
+    }
+}
+
 -(void)parseICSString:(NSString *)icsString withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
 
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\n +" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSString *icsStringWithoutNewlines = [regex stringByReplacingMatchesInString:icsString options:0 range:NSMakeRange(0, [icsString length]) withTemplate:@""];
+
     // Pull out each line from the calendar file
-    NSMutableArray *eventsArray = [NSMutableArray arrayWithArray:[icsString componentsSeparatedByString:@"BEGIN:VEVENT"]];
+    NSMutableArray *eventsArray = [NSMutableArray arrayWithArray:[icsStringWithoutNewlines componentsSeparatedByString:@"BEGIN:VEVENT"]];
 
     MXLCalendar *calendar = [[MXLCalendar alloc] init];
 
@@ -111,6 +147,7 @@
         NSString *repetitionString;
         NSString *exceptionRuleString;
         NSMutableArray *exceptionDates = [[NSMutableArray alloc] init];
+        NSMutableArray<MXLCalendarAttendee> *attendees = (NSMutableArray<MXLCalendarAttendee> *)[[NSMutableArray alloc] init];
         
         // Extract event time zone ID
         eventScanner = [NSScanner scannerWithString:event];
@@ -156,6 +193,25 @@
         [eventScanner scanUpToString:@"\n" intoString:&eventUniqueIDString];
         eventUniqueIDString = [[eventUniqueIDString stringByReplacingOccurrencesOfString:@"UID:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         
+        // Extract the attendees
+        eventScanner = [NSScanner scannerWithString:event];
+        bool scannerStatus;
+        do {
+            NSString *attendeeString;
+            if ([eventScanner scanUpToString:@"ATTENDEE;" intoString:nil]) {
+                scannerStatus = [eventScanner scanUpToString:@"\n" intoString:&attendeeString];
+                if (scannerStatus) {
+                    attendeeString = [[attendeeString stringByReplacingOccurrencesOfString:@"ATTENDEE;" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+                    MXLCalendarAttendee *attendee = [self createAttendee:attendeeString];
+                    if (attendee) {
+                        [attendees addObject:attendee];
+                    }
+                }
+            } else {
+                scannerStatus = false;
+            }
+        } while (scannerStatus);
+
         // Extract the recurrance ID
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:[NSString stringWithFormat:@"RECURRENCE-ID;TZID=%@:", timezoneIDString] intoString:nil];
@@ -253,7 +309,8 @@
                                                               recurrenceRules:repetitionString
                                                                exceptionDates:exceptionDates
                                                                 exceptionRule:exceptionRuleString
-                                                           timeZoneIdentifier:calendarString];
+                                                           timeZoneIdentifier:calendarString
+                                                                    attendees:attendees];
         [calendar addEvent:event];
         
     }
