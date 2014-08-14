@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-#  Be sure to run `pod spec lint MXLCalendarManager.podspec' to ensure this is a
 Pod::Spec.new do |spec|
   spec.platform = :ios
   spec.name         = 'MXLCalendarManager'
