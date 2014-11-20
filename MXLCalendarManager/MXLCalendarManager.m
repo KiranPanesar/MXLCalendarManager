@@ -33,6 +33,11 @@
 
 @implementation MXLCalendarManager
 
+-(void)scanICSFileAtRAM:(NSString *)Data withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
+    [self parseICSString:Data withCompletionHandler:callback];
+    
+}
+
 -(void)scanICSFileAtRemoteURL:(NSURL *)fileURL withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
