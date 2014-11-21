@@ -46,7 +46,7 @@
     self = [super self];
 
     if (self) {
-        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 
         // Set up the shared NSDateFormatter instance to convert the strings to NSDate objects
         dateFormatter = [[NSDateFormatter alloc] init];
@@ -246,7 +246,7 @@
 }
 
 -(BOOL)checkDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
-    NSDateComponents *components = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit| NSYearCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth| NSCalendarUnitYear fromDate:[NSDate date]];
 
     [components setDay:day];
     [components setMonth:month];
@@ -266,9 +266,9 @@
     if (!repeatRuleFrequency) {
 
         // Load date into NSDateComponent from the NSCalendar instance
-        NSDateComponents *difference = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit
+        NSDateComponents *difference = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond
                                                    fromDate:self.eventStartDate toDate:date options:0];
-        
+
         // Check if the event's start date is equal to the provided date
         if ([difference day] == 0 &&  [difference month] == 0 && [difference year] == 0 &&  [difference hour] == 0 && [difference minute] == 0 && [difference second] == 0) {
             return ([self exceptionOnDate:date] ? NO : YES); // Check if there's an exception rule covering this date. Return accordingly
@@ -283,12 +283,12 @@
     }
     
     // Extract the components from the provided date
-    NSDateComponents *components = [calendar components:NSDayCalendarUnit | NSWeekCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSWeekdayCalendarUnit
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday
                                                                    fromDate:date];
     NSInteger d = [components day];
     NSInteger m = [components month];
-    NSInteger dayOfYear = [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:date];
-    
+    NSInteger dayOfYear = [calendar ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:date];
+
     NSString *dayString = [self dayOfWeekFromInteger:components.weekday];
     NSString *weekNumberString  = [NSString stringWithFormat:@"%i", [components weekOfYear]];
     NSString *monthString = [NSString stringWithFormat:@"%i", m];
@@ -344,7 +344,7 @@
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
 
                 // Get the number of weeks between the final date and current date
-                NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:maximumDate toDate:date options:0] day];
+                NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:maximumDate toDate:date options:0] day];
 
                 // If the difference between the two dates fits the recurrance pattern
                 if (difference % [repeatRuleInterval integerValue])
@@ -362,7 +362,7 @@
             if ([repeatRuleUntilDate compare:date] == NSOrderedDescending || [repeatRuleUntilDate compare:date] == NSOrderedDescending) {
 
                 // Find the difference (as before)
-                NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:repeatRuleUntilDate toDate:date options:0] day];
+                NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:repeatRuleUntilDate toDate:date options:0] day];
 
                 // If the difference between the two dates fits the recurrance pattern
                 if (difference % [repeatRuleInterval integerValue]) {
@@ -377,7 +377,7 @@
             }
         } else {
             // If there's no recurrance limit, we just have to check if the 
-            NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:self.eventCreatedDate toDate:date options:0] day];
+            NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:self.eventCreatedDate toDate:date options:0] day];
             if (difference % [repeatRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -398,7 +398,7 @@
                                                                                options:0];
             
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
-                NSInteger difference = [[calendar components:NSMonthCalendarUnit fromDate:[calendar dateFromComponents:comp] toDate:date options:0] month];
+                NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:[calendar dateFromComponents:comp] toDate:date options:0] month];
                 if (difference % [repeatRuleInterval integerValue]) {
                     return NO;
                 } else {
@@ -409,7 +409,7 @@
             }
         } else if (repeatRuleUntilDate) {
             if ([repeatRuleUntilDate compare:date] == NSOrderedDescending || [repeatRuleUntilDate compare:date] == NSOrderedSame) {
-                NSInteger difference = [[calendar components:NSMonthCalendarUnit fromDate:repeatRuleUntilDate toDate:date options:0] month];
+                NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:repeatRuleUntilDate toDate:date options:0] month];
                 
                 if (difference % [repeatRuleInterval integerValue]) {
                     return NO;
@@ -421,7 +421,7 @@
                 return NO;
             }
         } else {
-            NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:self.eventCreatedDate toDate:date options:0] month];
+            NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:self.eventCreatedDate toDate:date options:0] month];
             if (difference % [repeatRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -440,7 +440,7 @@
                                                                                options:0];
             
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
-                NSInteger difference = [[calendar components:NSYearCalendarUnit fromDate:[calendar dateFromComponents:comp] toDate:date options:0] year];
+                NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:[calendar dateFromComponents:comp] toDate:date options:0] year];
                 
                 if (difference % [repeatRuleInterval integerValue]) {
                     return NO;
@@ -449,7 +449,7 @@
                 }
             }
         } else if (repeatRuleUntilDate) {
-            NSInteger difference = [[calendar components:NSYearCalendarUnit fromDate:repeatRuleUntilDate toDate:date options:0] year];
+            NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:repeatRuleUntilDate toDate:date options:0] year];
 
             if (difference % [repeatRuleInterval integerValue]) {
                 return NO;
@@ -457,7 +457,7 @@
                 return ([self exceptionOnDate:date] ? NO : YES);
             }
         } else {
-            NSInteger difference = [[calendar components:NSYearCalendarUnit fromDate:self.eventCreatedDate toDate:date options:0] year];
+            NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:self.eventCreatedDate toDate:date options:0] year];
             if (difference % [repeatRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -483,13 +483,13 @@
     }
     
     
-    NSDateComponents *components = [calendar components:NSDayCalendarUnit | NSWeekCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSWeekdayCalendarUnit
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday
                                                                    fromDate:date];
     
     NSInteger d = [components day];
     NSInteger m = [components month];
     
-    NSInteger dayOfYear = [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:date];
+    NSInteger dayOfYear = [calendar ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:date];
     
     NSString *dayString = [self dayOfWeekFromInteger:components.weekday];
     NSString *weekNumberString  = [NSString stringWithFormat:@"%i", [components weekOfYear]];
@@ -544,7 +544,7 @@
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
                 
                 // Get the number of weeks between the final date and current date
-                NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:maximumDate toDate:date options:0] day];
+                NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:maximumDate toDate:date options:0] day];
                 
                 if (difference % [exRuleInterval integerValue])
                     return NO;
@@ -555,7 +555,7 @@
             }
         } else if (exRuleUntilDate) {
             if ([exRuleUntilDate compare:date] == NSOrderedDescending || [exRuleUntilDate compare:date] == NSOrderedDescending) {
-                NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:exRuleUntilDate toDate:date options:0] day];
+                NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:exRuleUntilDate toDate:date options:0] day];
                 
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
@@ -566,7 +566,7 @@
                 return NO;
             }
         } else {
-            NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:self.eventCreatedDate toDate:date options:0] day];
+            NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:self.eventCreatedDate toDate:date options:0] day];
             if (difference % [exRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -586,7 +586,7 @@
                                                                                options:0];
             
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
-                NSInteger difference = [[calendar components:NSMonthCalendarUnit fromDate:[calendar dateFromComponents:comp] toDate:date options:0] month];
+                NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:[calendar dateFromComponents:comp] toDate:date options:0] month];
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
                 } else {
@@ -597,7 +597,7 @@
             }
         } else if (exRuleUntilDate) {
             if ([exRuleUntilDate compare:date] == NSOrderedDescending || [exRuleUntilDate compare:date] == NSOrderedSame) {
-                NSInteger difference = [[calendar components:NSMonthCalendarUnit fromDate:exRuleUntilDate toDate:date options:0] month];
+                NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:exRuleUntilDate toDate:date options:0] month];
                 
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
@@ -609,7 +609,7 @@
                 return NO;
             }
         } else {
-            NSInteger difference = [[calendar components:NSDayCalendarUnit fromDate:self.eventCreatedDate toDate:date options:0] month];
+            NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:self.eventCreatedDate toDate:date options:0] month];
             if (difference % [exRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -628,7 +628,7 @@
                                                                                options:0];
             
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
-                NSInteger difference = [[calendar components:NSYearCalendarUnit fromDate:[calendar dateFromComponents:comp] toDate:date options:0] year];
+                NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:[calendar dateFromComponents:comp] toDate:date options:0] year];
                 
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
@@ -637,7 +637,7 @@
                 }
             }
         } else if (exRuleUntilDate) {
-            NSInteger difference = [[calendar components:NSYearCalendarUnit fromDate:exRuleUntilDate toDate:date options:0] year];
+            NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:exRuleUntilDate toDate:date options:0] year];
             
             if (difference % [exRuleInterval integerValue]) {
                 return NO;
@@ -645,7 +645,7 @@
                 return YES;
             }
         } else {
-            NSInteger difference = [[calendar components:NSYearCalendarUnit fromDate:self.eventCreatedDate toDate:date options:0] year];
+            NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:self.eventCreatedDate toDate:date options:0] year];
             if (difference % [exRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -660,13 +660,13 @@
 }
 
 - (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore {
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                    fromDate:self.eventStartDate];
     
-    NSDateComponents *endComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+    NSDateComponents *endComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                       fromDate:self.eventEndDate];
     
-    NSDateComponents *selectedDayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+    NSDateComponents *selectedDayComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                               fromDate:date];
     
     [components setDay:[selectedDayComponents day]];

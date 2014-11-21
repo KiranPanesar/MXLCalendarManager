@@ -46,7 +46,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyddMM"];
 
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit| NSYearCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth| NSCalendarUnitYear fromDate:[NSDate date]];
     
     [components setDay:day];
     [components setMonth:month];
@@ -103,8 +103,8 @@
         MXLCalendarEvent *firstEvent = obj1;
         MXLCalendarEvent *secondEvent = obj2;
         
-        NSDateComponents *firstComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:firstEvent.eventStartDate];
-        NSDateComponents *secondComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:secondEvent.eventStartDate];
+        NSDateComponents *firstComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:firstEvent.eventStartDate];
+        NSDateComponents *secondComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:secondEvent.eventStartDate];
         
         return [[[NSCalendar currentCalendar] dateFromComponents:firstComponents] compare:[[NSCalendar currentCalendar] dateFromComponents:secondComponents]];
     }]] forKey:[dateFormatter stringFromDate:date]];
