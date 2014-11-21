@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 #import "MXLCalendarManager.h"
+#import <UIKit/UIKit.h>
 
 @interface MXLCalendarManager ()
 
@@ -32,11 +33,6 @@
 @end
 
 @implementation MXLCalendarManager
-
--(void)scanICSFileAtRAM:(NSString *)Data withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
-    [self parseICSString:Data withCompletionHandler:callback];
-    
-}
 
 -(void)scanICSFileAtRemoteURL:(NSURL *)fileURL withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
