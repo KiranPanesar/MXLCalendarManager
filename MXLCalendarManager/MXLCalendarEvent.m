@@ -290,8 +290,8 @@
     NSInteger dayOfYear = [calendar ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:date];
 
     NSString *dayString = [self dayOfWeekFromInteger:components.weekday];
-    NSString *weekNumberString  = [NSString stringWithFormat:@"%i", [components weekOfYear]];
-    NSString *monthString = [NSString stringWithFormat:@"%i", m];
+    NSString *weekNumberString  = [NSString stringWithFormat:@"%li", (long)[components weekOfYear]];
+    NSString *monthString = [NSString stringWithFormat:@"%li", (long)m];
     
     // If the event is set to repeat on a certain day of the week,
     // it MUST be the current date's weekday for it to occur
@@ -308,10 +308,10 @@
     }
     
     // Same as above (and below)
-    if (repeatRuleByMonthDay && ![repeatRuleByMonthDay containsObject:[NSString stringWithFormat:@"%i", d]])
+    if (repeatRuleByMonthDay && ![repeatRuleByMonthDay containsObject:[NSString stringWithFormat:@"%li", (long)d]])
         return NO;
     
-    if (repeatRuleByYearDay && ![repeatRuleByYearDay containsObject:[NSString stringWithFormat:@"%i", dayOfYear]])
+    if (repeatRuleByYearDay && ![repeatRuleByYearDay containsObject:[NSString stringWithFormat:@"%li", (long)dayOfYear]])
         return NO;
     
     if (repeatRuleByWeekNo && ![repeatRuleByWeekNo containsObject:weekNumberString])
@@ -492,8 +492,8 @@
     NSInteger dayOfYear = [calendar ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:date];
     
     NSString *dayString = [self dayOfWeekFromInteger:components.weekday];
-    NSString *weekNumberString  = [NSString stringWithFormat:@"%i", [components weekOfYear]];
-    NSString *monthString = [NSString stringWithFormat:@"%i", m];
+    NSString *weekNumberString  = [NSString stringWithFormat:@"%li", (long)[components weekOfYear]];
+    NSString *monthString = [NSString stringWithFormat:@"%li", (long)m];
     
     // If the event is set to repeat on a certain day of the week,
     // it MUST be the current date's weekday for it to occur
@@ -510,10 +510,10 @@
     }
     
     // Same as above (and below)
-    if (exRuleByMonthDay && ![exRuleByMonthDay containsObject:[NSString stringWithFormat:@"%i", d]])
+    if (exRuleByMonthDay && ![exRuleByMonthDay containsObject:[NSString stringWithFormat:@"%li", (long)d]])
         return NO;
     
-    if (exRuleByYearDay && ![exRuleByYearDay containsObject:[NSString stringWithFormat:@"%i", dayOfYear]])
+    if (exRuleByYearDay && ![exRuleByYearDay containsObject:[NSString stringWithFormat:@"%li", (long)dayOfYear]])
         return NO;
     
     if (exRuleByWeekNo && ![exRuleByWeekNo containsObject:weekNumberString])
