@@ -89,7 +89,7 @@ typedef enum {
 
 @property (strong, nonatomic) NSString *rruleString;
 
--(id)initWithStartDate:(NSString *)startString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID;
+-(id)initWithStartDate:(NSString *)startString duration:(NSString *)durationString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID;
 
 -(NSDate *)dateFromString:(NSString *)dateString;
 

@@ -97,6 +97,7 @@
     for (NSString *event in eventsArray) {
         NSString *timezoneIDString;
         NSString *startDateTimeString;
+        NSString *durationString;
         NSString *endDateTimeString;
         NSString *eventUniqueIDString;
         NSString *recurrenceIDString;
@@ -131,6 +132,12 @@
             [eventScanner scanUpToString:@"\n" intoString:&startDateTimeString];
             startDateTimeString = [[startDateTimeString stringByReplacingOccurrencesOfString:@"DTSTART:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         }
+        
+        // Extract duration
+        eventScanner = [NSScanner scannerWithString:event];
+        [eventScanner scanUpToString:@"DURATION" intoString:nil];
+        [eventScanner scanUpToString:@"\n" intoString:&durationString];
+        durationString = [[durationString stringByReplacingOccurrencesOfString:@"DURATION:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         
         // Extract end time
         eventScanner = [NSScanner scannerWithString:event];
@@ -242,6 +249,7 @@
         }
         
         MXLCalendarEvent *event = [[MXLCalendarEvent alloc] initWithStartDate:startDateTimeString
+                                                                     duration:durationString
                                                                       endDate:endDateTimeString
                                                                     createdAt:createdDateTimeString
                                                                  lastModified:lastModifiedDateTimeString

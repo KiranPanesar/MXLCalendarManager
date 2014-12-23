@@ -27,6 +27,7 @@
 
 #import "MXLCalendarEvent.h"
 #import <EventKit/EventKit.h>
+#import "NSDateComponents+ISO8601Duration.h"
 
 #define DAILY_FREQUENCY @"DAILY"
 #define WEEKLY_FREQUENCY @"WEEKLY"
@@ -41,7 +42,7 @@
 
 @implementation MXLCalendarEvent
 
--(id)initWithStartDate:(NSString *)startString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID {
+-(id)initWithStartDate:(NSString *)startString duration:(NSString *)durationString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID {
     
     self = [super self];
 
@@ -58,6 +59,10 @@
         self.eventStartDate = [self dateFromString:startString];
         
         self.eventEndDate   = [self dateFromString:endString];
+        if (durationString && !self.eventEndDate && self.eventStartDate) {
+            NSDateComponents *components = [NSDateComponents durationFrom8601String:durationString];
+            self.eventEndDate = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:self.eventStartDate options:0];
+        }
         self.eventCreatedDate = [self dateFromString:createdString];
         self.eventLastModifiedDate = [self dateFromString:lastModifiedString];
         
