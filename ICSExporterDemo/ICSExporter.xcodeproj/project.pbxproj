@@ -39,6 +39,7 @@
 		6B9BDFFB183912420009C337 /* NSTimeZone+ProperAbbreviation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BDFF7183912420009C337 /* NSTimeZone+ProperAbbreviation.m */; };
 		6B9BDFFD183912750009C337 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B9BDFFC183912750009C337 /* EventKit.framework */; };
 		6BF20BE2172056EF006FF53F /* basic.ics in Resources */ = {isa = PBXBuildFile; fileRef = 6BF20BE1172056EF006FF53F /* basic.ics */; };
+		6D7F6BCD1954EAA3009778E5 /* MXLCalendarAttendee.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7F6BCC1954EAA3009778E5 /* MXLCalendarAttendee.m */; };
 		FA9C530E1A402E4200ECFF24 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9C530D1A402E4200ECFF24 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,8 @@
 		6B9BDFF7183912420009C337 /* NSTimeZone+ProperAbbreviation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+ProperAbbreviation.m"; sourceTree = "<group>"; };
 		6B9BDFFC183912750009C337 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		6BF20BE1172056EF006FF53F /* basic.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic.ics; sourceTree = "<group>"; };
+		6D7F6BCB1954EAA3009778E5 /* MXLCalendarAttendee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarAttendee.h; sourceTree = "<group>"; };
+		6D7F6BCC1954EAA3009778E5 /* MXLCalendarAttendee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarAttendee.m; sourceTree = "<group>"; };
 		FA9C530C1A402E4200ECFF24 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		FA9C530D1A402E4200ECFF24 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,6 +249,8 @@
 				6B9BDFF5183912420009C337 /* MXLCalendarManager.m */,
 				6B9BDFF6183912420009C337 /* NSTimeZone+ProperAbbreviation.h */,
 				6B9BDFF7183912420009C337 /* NSTimeZone+ProperAbbreviation.m */,
+				6D7F6BCB1954EAA3009778E5 /* MXLCalendarAttendee.h */,
+				6D7F6BCC1954EAA3009778E5 /* MXLCalendarAttendee.m */,
 			);
 			name = MXLCalendarManager;
 			path = ../../MXLCalendarManager;
@@ -296,6 +301,7 @@
 		6B508BD1171489940080AB4D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "MobileX Labs";
 				TargetAttributes = {
@@ -372,6 +378,7 @@
 			files = (
 				6B9BDFF8183912420009C337 /* MXLCalendar.m in Sources */,
 				6B508BE9171489940080AB4D /* main.m in Sources */,
+				6D7F6BCD1954EAA3009778E5 /* MXLCalendarAttendee.m in Sources */,
 				6B508BED171489940080AB4D /* AppDelegate.m in Sources */,
 				6B508BF6171489940080AB4D /* ViewController.m in Sources */,
 				6B9BDFFA183912420009C337 /* MXLCalendarManager.m in Sources */,

@@ -41,8 +41,22 @@
 
 @implementation MXLCalendarEvent
 
--(id)initWithStartDate:(NSString *)startString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID {
-    
+-(id)initWithStartDate:(NSString *)startString
+               endDate:(NSString *)endString
+             createdAt:(NSString *)createdString
+          lastModified:(NSString *)lastModifiedString
+              uniqueID:(NSString *)uniqueID
+          recurrenceID:(NSString *)recurrenceID
+               summary:(NSString *)summary
+           description:(NSString *)description
+              location:(NSString *)location
+                status:(NSString *)status
+       recurrenceRules:(NSString *)recurRules
+        exceptionDates:(NSMutableArray *)exceptionDates
+         exceptionRule:(NSString *)exceptionRule
+    timeZoneIdentifier:(NSString *)timezoneID
+             attendees:(NSArray<MXLCalendarAttendee> *)attendees {
+
     self = [super self];
 
     if (self) {
@@ -50,22 +64,22 @@
 
         // Set up the shared NSDateFormatter instance to convert the strings to NSDate objects
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:timezoneID]];
 
         [dateFormatter setDateFormat:@"yyyyMMdd HHmmss"];
-        
+
         // Set the date objects to the converted NSString objects
         self.eventStartDate = [self dateFromString:startString];
-        
+
         self.eventEndDate   = [self dateFromString:endString];
         self.eventCreatedDate = [self dateFromString:createdString];
         self.eventLastModifiedDate = [self dateFromString:lastModifiedString];
-        
+
         self.rruleString = recurRules;
-        
+
         [self parseRules:recurRules    forType:MXLCalendarEventRuleTypeRepetition];
         [self parseRules:exceptionRule forType:MXLCalendarEventRuleTypeException];
-        
+
         // Set the rest of the properties
         self.eventUniqueID = uniqueID;
         self.eventRecurrenceID  = recurrenceID;
@@ -73,7 +87,8 @@
         self.eventDescription = description;
         self.eventLocation = location;
         self.eventStatus = status;
-        
+        self.attendees = attendees;
+
     }
     return self;
 }
@@ -81,21 +96,22 @@
 -(NSDate *)dateFromString:(NSString *)dateString {
     dateString = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     dateString = [dateString stringByReplacingOccurrencesOfString:@"Z" withString:@""];
-    
+
     NSDate *date = [dateFormatter dateFromString:dateString];
-    
+
     return date;
 }
 
--(void)parseRules:(NSString *)rule forType:(MXLCalendarEventRuleType)type {
-    
+-(void)parseRules:(NSString *)rule
+          forType:(MXLCalendarEventRuleType)type {
+
     if (!rule)
         return;
-    
+
     NSScanner *ruleScanner = [[NSScanner alloc] initWithString:rule];
-        
+
     NSArray *rulesArray = [rule componentsSeparatedByString:@";"]; // Split up rules string into array
-    
+
     NSString *frequency;
     NSString *count;
     NSString *untilString;
@@ -106,24 +122,24 @@
     NSString *byWeekNo;
     NSString *byMonth;
     NSString *weekStart;
-    
+
     // Loop through each rule
     for (NSString *rule in rulesArray) {
         ruleScanner = [[NSScanner alloc] initWithString:rule];
-        
+
         // If the rule is for the FREQuency
         if ([rule rangeOfString:@"FREQ"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
             [ruleScanner scanUpToString:@";" intoString:&frequency];
             frequency = [frequency stringByReplacingOccurrencesOfString:@"=" withString:@""];
-            
+
             if (type == MXLCalendarEventRuleTypeRepetition) {
                 repeatRuleFrequency = frequency;
             } else {
                 exRuleFrequency = frequency;
             }
         }
-        
+
         // If the rule is for the COUNT
         if ([rule rangeOfString:@"COUNT"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
@@ -136,7 +152,7 @@
                 exRuleCount = count;
             }
         }
-        
+
         // If the rule is for the UNTIL date
         if ([rule rangeOfString:@"UNTIL"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
@@ -149,13 +165,13 @@
                 exRuleUntilDate = [self dateFromString:untilString];
             }
         }
-        
+
         // If the rule is for the INTERVAL
         if ([rule rangeOfString:@"INTERVAL"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
             [ruleScanner scanUpToString:@";" intoString:&interval];
             interval = [interval stringByReplacingOccurrencesOfString:@"=" withString:@""];
-            
+
             if (type == MXLCalendarEventRuleTypeRepetition) {
                 repeatRuleInterval = interval;
             } else {
@@ -176,7 +192,7 @@
             }
 
         }
-        
+
         // If the rule is for the BYMONTHDAY
         if ([rule rangeOfString:@"BYMONTHDAY"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
@@ -188,9 +204,9 @@
             } else {
                 exRuleByMonthDay = [byMonthDay componentsSeparatedByString:@","];
             }
-            
+
         }
-        
+
         // If the rule is for the BYYEARDAY
         if ([rule rangeOfString:@"BYYEARDAY"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
@@ -203,7 +219,7 @@
                 exRuleByYearDay = [byYearDay componentsSeparatedByString:@","];
             }
         }
-        
+
         // If the rule is for the BYWEEKNO
         if ([rule rangeOfString:@"BYWEEKNO"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
@@ -215,7 +231,7 @@
             } else {
                 exRuleByWeekNo = [byWeekNo componentsSeparatedByString:@","];
             }
-        } 
+        }
 
         // If the rule is for the BYMONTH
         if ([rule rangeOfString:@"BYMONTH"].location != NSNotFound) {
@@ -229,7 +245,7 @@
                 exRuleByMonth = [byMonth componentsSeparatedByString:@","];
             }
         }
-        
+
         // If the rule is for the WKST
         if ([rule rangeOfString:@"WKST"].location != NSNotFound) {
             [ruleScanner scanUpToString:@"=" intoString:nil];
@@ -251,17 +267,17 @@
     [components setDay:day];
     [components setMonth:month];
     [components setYear:year];
-    
+
     return [self checkDate:[calendar dateFromComponents:components]];
 }
 
 -(BOOL)checkDate:(NSDate *)date {
-    
+
     // If the event starts in the future
     if ([self.eventStartDate compare:[NSDate date]] == NSOrderedDescending) {
         return NO;
     }
-    
+
     // If the event does not repeat, the 'date' must be the event's start date for event to occur on this date
     if (!repeatRuleFrequency) {
 
@@ -281,7 +297,7 @@
     if ([eventExceptionDates containsObject:date]) {
         return NO;
     }
-    
+
     // Extract the components from the provided date
     NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday
                                                                    fromDate:date];
@@ -292,7 +308,7 @@
     NSString *dayString = [self dayOfWeekFromInteger:components.weekday];
     NSString *weekNumberString  = [NSString stringWithFormat:@"%li", (long)[components weekOfYear]];
     NSString *monthString = [NSString stringWithFormat:@"%li", (long)m];
-    
+
     // If the event is set to repeat on a certain day of the week,
     // it MUST be the current date's weekday for it to occur
     if (repeatRuleByDay   && ![repeatRuleByDay containsObject:dayString]) {
@@ -306,40 +322,40 @@
             }
         }
     }
-    
+
     // Same as above (and below)
     if (repeatRuleByMonthDay && ![repeatRuleByMonthDay containsObject:[NSString stringWithFormat:@"%li", (long)d]])
         return NO;
-    
+
     if (repeatRuleByYearDay && ![repeatRuleByYearDay containsObject:[NSString stringWithFormat:@"%li", (long)dayOfYear]])
         return NO;
-    
+
     if (repeatRuleByWeekNo && ![repeatRuleByWeekNo containsObject:weekNumberString])
         return NO;
 
     if (repeatRuleByMonth && ![repeatRuleByMonth containsObject:monthString])
         return NO;
-    
+
     // If there's no repetition interval provided, it means the interval = 1.
     // We explicitly set it to "1" for use in calculations below
     repeatRuleInterval = (repeatRuleInterval ? repeatRuleInterval : @"1");
 
     // If it's set to repeat weekly...
     if ([repeatRuleFrequency isEqualToString:WEEKLY_FREQUENCY]) {
-        
+
         // Is there a limit on the number of repetitions
         // (e.g., event repeats for the 3 occurrences after it first occurred)
         if (repeatRuleCount) {
-            
+
             // Get the final possible time the event will be repeated
             NSDateComponents *comp = [[NSDateComponents alloc] init];
             [comp setDay:[repeatRuleCount integerValue] * [repeatRuleInterval integerValue]];
-            
+
             // Create a date by adding the final week it'll occur onto the first occurrence
             NSDate *maximumDate = [calendar dateByAddingComponents:comp
                                                             toDate:self.eventCreatedDate
                                                            options:0];
-            
+
             // If the final possible occurrence is in the future...
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
 
@@ -376,7 +392,7 @@
                 return NO;
             }
         } else {
-            // If there's no recurrance limit, we just have to check if the 
+            // If there's no recurrance limit, we just have to check if the
             NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:self.eventCreatedDate toDate:date options:0] day];
             if (difference % [repeatRuleInterval integerValue]) {
                 return NO;
@@ -389,14 +405,14 @@
         if (repeatRuleCount) {
 
             NSInteger finalMonth = [repeatRuleCount integerValue] * [repeatRuleInterval integerValue];
-            
+
             NSDateComponents *comp = [[NSDateComponents alloc] init];
             [comp setMonth:finalMonth];
-            
+
             NSDate *maximumDate = [calendar dateByAddingComponents:comp
                                                                                 toDate:self.eventCreatedDate
                                                                                options:0];
-            
+
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
                 NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:[calendar dateFromComponents:comp] toDate:date options:0] month];
                 if (difference % [repeatRuleInterval integerValue]) {
@@ -410,13 +426,13 @@
         } else if (repeatRuleUntilDate) {
             if ([repeatRuleUntilDate compare:date] == NSOrderedDescending || [repeatRuleUntilDate compare:date] == NSOrderedSame) {
                 NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:repeatRuleUntilDate toDate:date options:0] month];
-                
+
                 if (difference % [repeatRuleInterval integerValue]) {
                     return NO;
                 } else {
                     return ([self exceptionOnDate:date] ? NO : YES);
                 }
-                
+
             } else {
                 return NO;
             }
@@ -431,17 +447,17 @@
     } else if ([repeatRuleFrequency isEqualToString:YEARLY_FREQUENCY]) {
         if (repeatRuleCount) {
             NSInteger finalYear = [repeatRuleCount integerValue] * [repeatRuleInterval integerValue];
-            
+
             NSDateComponents *comp = [[NSDateComponents alloc] init];
             [comp setYear:finalYear];
-            
+
             NSDate *maximumDate = [calendar dateByAddingComponents:comp
                                                                                 toDate:self.eventCreatedDate
                                                                                options:0];
-            
+
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
                 NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:[calendar dateFromComponents:comp] toDate:date options:0] year];
-                
+
                 if (difference % [repeatRuleInterval integerValue]) {
                     return NO;
                 } else {
@@ -467,7 +483,7 @@
     } else {
         return NO;
     }
-    
+
     return NO;
 }
 
@@ -476,25 +492,25 @@
     // If the event does not repeat, the 'date' must be the event's start date for event to occur on this date
     if (!exRuleFrequency)
         return  NO;
-    
+
     // If the date is in the event's exception dates, event won't occur
     if ([eventExceptionDates containsObject:date]) {
         return NO;
     }
-    
-    
+
+
     NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekday
                                                                    fromDate:date];
-    
+
     NSInteger d = [components day];
     NSInteger m = [components month];
-    
+
     NSInteger dayOfYear = [calendar ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:date];
-    
+
     NSString *dayString = [self dayOfWeekFromInteger:components.weekday];
     NSString *weekNumberString  = [NSString stringWithFormat:@"%li", (long)[components weekOfYear]];
     NSString *monthString = [NSString stringWithFormat:@"%li", (long)m];
-    
+
     // If the event is set to repeat on a certain day of the week,
     // it MUST be the current date's weekday for it to occur
     if (exRuleByDay   && ![exRuleByDay containsObject:dayString]) {
@@ -504,48 +520,48 @@
                 if (exRuleByDay && ![exRuleByDay containsObject:[NSString stringWithFormat:@"3%@", dayString]]) {
                     return NO;
                 }
-                
+
             }
         }
     }
-    
+
     // Same as above (and below)
     if (exRuleByMonthDay && ![exRuleByMonthDay containsObject:[NSString stringWithFormat:@"%li", (long)d]])
         return NO;
-    
+
     if (exRuleByYearDay && ![exRuleByYearDay containsObject:[NSString stringWithFormat:@"%li", (long)dayOfYear]])
         return NO;
-    
+
     if (exRuleByWeekNo && ![exRuleByWeekNo containsObject:weekNumberString])
         return NO;
-    
+
     if (exRuleByMonth && ![exRuleByMonth containsObject:monthString])
         return NO;
-    
+
     exRuleInterval = (exRuleInterval ? exRuleInterval : @"1");
-    
+
     // If it's set to repeat every week...
     if ([exRuleFrequency isEqualToString:WEEKLY_FREQUENCY]) {
-        
+
         // Is there a limit on the number of repetitions
         // (e.g., event repeats for the 3 occurrences after it first occurred)
         if (exRuleCount) {
-            
+
             // Get the final possible time the event will be repeated
             NSDateComponents *comp = [[NSDateComponents alloc] init];
             [comp setDay:[exRuleCount integerValue] * [exRuleInterval integerValue]];
-            
+
             // Create a date by adding the final week it'll occur onto the first occurrence
             NSDate *maximumDate = [calendar dateByAddingComponents:comp
                                                                                 toDate:self.eventCreatedDate
                                                                                options:0];
-            
+
             // If the final possible occurrence is in the future...
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
-                
+
                 // Get the number of weeks between the final date and current date
                 NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:maximumDate toDate:date options:0] day];
-                
+
                 if (difference % [exRuleInterval integerValue])
                     return NO;
                 else
@@ -556,7 +572,7 @@
         } else if (exRuleUntilDate) {
             if ([exRuleUntilDate compare:date] == NSOrderedDescending || [exRuleUntilDate compare:date] == NSOrderedDescending) {
                 NSInteger difference = [[calendar components:NSCalendarUnitDay fromDate:exRuleUntilDate toDate:date options:0] day];
-                
+
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
                 } else {
@@ -575,16 +591,16 @@
         }
     } else if ([exRuleFrequency isEqualToString:MONTHLY_FREQUENCY]) {
         if (exRuleCount) {
-            
+
             NSInteger finalMonth = [exRuleCount integerValue] * [exRuleInterval integerValue];
-            
+
             NSDateComponents *comp = [[NSDateComponents alloc] init];
             [comp setMonth:finalMonth];
-            
+
             NSDate *maximumDate = [calendar dateByAddingComponents:comp
                                                                                 toDate:self.eventCreatedDate
                                                                                options:0];
-            
+
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
                 NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:[calendar dateFromComponents:comp] toDate:date options:0] month];
                 if (difference % [exRuleInterval integerValue]) {
@@ -598,13 +614,13 @@
         } else if (exRuleUntilDate) {
             if ([exRuleUntilDate compare:date] == NSOrderedDescending || [exRuleUntilDate compare:date] == NSOrderedSame) {
                 NSInteger difference = [[calendar components:NSCalendarUnitMonth fromDate:exRuleUntilDate toDate:date options:0] month];
-                
+
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
                 } else {
                     return YES;
                 }
-                
+
             } else {
                 return NO;
             }
@@ -619,17 +635,17 @@
     } else if ([exRuleFrequency isEqualToString:YEARLY_FREQUENCY]) {
         if (exRuleCount) {
             NSInteger finalYear = [exRuleCount integerValue] * [exRuleInterval integerValue];
-            
+
             NSDateComponents *comp = [[NSDateComponents alloc] init];
             [comp setYear:finalYear];
-            
+
             NSDate *maximumDate = [calendar dateByAddingComponents:comp
                                                                                 toDate:self.eventCreatedDate
                                                                                options:0];
-            
+
             if ([maximumDate compare:date] == NSOrderedDescending || [maximumDate compare:date] == NSOrderedSame) {
                 NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:[calendar dateFromComponents:comp] toDate:date options:0] year];
-                
+
                 if (difference % [exRuleInterval integerValue]) {
                     return NO;
                 } else {
@@ -638,7 +654,7 @@
             }
         } else if (exRuleUntilDate) {
             NSInteger difference = [[calendar components:NSCalendarUnitYear fromDate:exRuleUntilDate toDate:date options:0] year];
-            
+
             if (difference % [exRuleInterval integerValue]) {
                 return NO;
             } else {
@@ -655,24 +671,24 @@
     } else {
         return NO;
     }
-    
+
     return NO;
 }
 
 - (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                    fromDate:self.eventStartDate];
-    
+
     NSDateComponents *endComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                       fromDate:self.eventEndDate];
-    
+
     NSDateComponents *selectedDayComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                               fromDate:date];
-    
+
     [components setDay:[selectedDayComponents day]];
     [components setMonth:[selectedDayComponents month]];
     [components setYear:[selectedDayComponents year]];
-    
+
     [endComponents setDay:[selectedDayComponents day]];
     [endComponents setMonth:[selectedDayComponents month]];
     [endComponents setYear:[selectedDayComponents year]];
@@ -681,10 +697,10 @@
     [event setTitle:[self eventSummary]];
     [event setNotes:[self eventDescription]];
     [event setLocation:[self eventLocation]];
-    
+
     [event setStartDate:[[NSCalendar currentCalendar] dateFromComponents:components]];
     [event setEndDate:[[NSCalendar currentCalendar] dateFromComponents:endComponents]];
-    
+
     return event;
 }
 
