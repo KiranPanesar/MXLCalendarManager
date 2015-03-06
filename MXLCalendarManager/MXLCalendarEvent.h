@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "MXLCalendarAttendee.h"
 
 @class EKEvent;
 @class EKEventStore;
@@ -86,20 +87,40 @@ typedef enum {
 @property (strong, nonatomic) NSString *eventDescription;
 @property (strong, nonatomic) NSString *eventLocation;
 @property (strong, nonatomic) NSString *eventStatus;
+@property (strong, nonatomic) NSArray<MXLCalendarAttendee> *attendees;
 
 @property (strong, nonatomic) NSString *rruleString;
 
--(id)initWithStartDate:(NSString *)startString endDate:(NSString *)endString createdAt:(NSString *)createdString lastModified:(NSString *)lastModifiedString uniqueID:(NSString *)uniqueID recurrenceID:(NSString *)recurrenceID summary:(NSString *)summary description:(NSString *)description location:(NSString *)location status:(NSString *)status recurrenceRules:(NSString *)recurRules exceptionDates:(NSMutableArray *)exceptionDates exceptionRule:(NSString *)exceptionRule timeZoneIdentifier:(NSString *)timezoneID;
+-(id)initWithStartDate:(NSString *)startString
+               endDate:(NSString *)endString
+             createdAt:(NSString *)createdString
+          lastModified:(NSString *)lastModifiedString
+              uniqueID:(NSString *)uniqueID
+          recurrenceID:(NSString *)recurrenceID
+               summary:(NSString *)summary
+           description:(NSString *)description
+              location:(NSString *)location
+                status:(NSString *)status
+       recurrenceRules:(NSString *)recurRules
+        exceptionDates:(NSMutableArray *)exceptionDates
+         exceptionRule:(NSString *)exceptionRule
+    timeZoneIdentifier:(NSString *)timezoneID
+             attendees:(NSArray<MXLCalendarAttendee> *)attendees;
 
 -(NSDate *)dateFromString:(NSString *)dateString;
 
--(void)parseRules:(NSString *)rule forType:(MXLCalendarEventRuleType)type;
+-(void)parseRules:(NSString *)rule
+          forType:(MXLCalendarEventRuleType)type;
 
--(BOOL)checkDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
+-(BOOL)checkDay:(NSInteger)day
+          month:(NSInteger)month
+           year:(NSInteger)year;
+
 -(BOOL)checkDate:(NSDate *)date;
 
 -(BOOL)exceptionOnDate:(NSDate *)date;
 
-- (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore;
+- (EKEvent *)convertToEKEventOnDate:(NSDate *)date
+                              store:(EKEventStore *)eventStore;
 
 @end
