@@ -42,7 +42,7 @@
                 NSDateComponents *components = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit | NSDayCalendarUnit fromDate:[event eventStartDate]];
                 
                 // If the event starts this month, add it to the array
-                if ([components month] == month) {
+                if ([components month] == month && [components year] == year) {
                     [daysArray addObject:[NSNumber numberWithInteger:[components day]]];
                     [currentCalendar addEvent:event onDateString:[dateFormatter stringFromDate:[event eventStartDate]]];
                 } else {
@@ -51,8 +51,12 @@
                     // Then we check if this current event occurs then.
                     // This is a way of reducing the number of checkDate: runs we need to do. It also means the algorithm speeds up as it progresses
                     for (int i = 1; i <= days; i++) {
+
                         if (![daysArray containsObject:[NSNumber numberWithInt:i]]) {
                             if ([event checkDay:i month:month year:year]) {
+                                if (i == 27) {
+                                    NSLog(@"%i", i);
+                                }
                                 [daysArray addObject:[NSNumber numberWithInteger:i]];
                                 [currentCalendar addEvent:event onDay:i month:month year:year];
                             }
@@ -166,12 +170,6 @@
 
     savedDates = [[NSMutableDictionary alloc] init];
     
-    VRGCalendarView *calendar = [[VRGCalendarView alloc] init];
-    [calendar setFrame:CGRectMake(0.0f, 20.0f, 320.0f, 320.0f)];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
-    
-    [calendar setDelegate:self];
-    [self.view addSubview:calendar];
     
     
     MXLCalendarManager *calendarManager = [[MXLCalendarManager alloc] init];
@@ -182,6 +180,13 @@
         currentCalendar = calendar;
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            VRGCalendarView *curcalendar = [[VRGCalendarView alloc] init];
+            [curcalendar setFrame:CGRectMake(0.0f, 20.0f, 320.0f, 320.0f)];
+            [curcalendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
+            
+            [curcalendar setDelegate:self];
+            [self.view addSubview:curcalendar];
+
             [eventsTableView reloadData];
         });
     }];
