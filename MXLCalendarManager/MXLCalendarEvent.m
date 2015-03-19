@@ -707,6 +707,7 @@
     [event setTitle:[self eventSummary]];
     [event setNotes:[self eventDescription]];
     [event setLocation:[self eventLocation]];
+    [event setAllDay:[self eventIsAllDay]];
 
     [event setStartDate:[[NSCalendar currentCalendar] dateFromComponents:components]];
     [event setEndDate:[[NSCalendar currentCalendar] dateFromComponents:endComponents]];
