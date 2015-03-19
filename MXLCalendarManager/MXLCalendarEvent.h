@@ -81,6 +81,8 @@ typedef enum {
 @property (strong, nonatomic) NSDate *eventCreatedDate;
 @property (strong, nonatomic) NSDate *eventLastModifiedDate;
 
+@property (assign, nonatomic) BOOL eventIsAllDay;
+
 @property (strong, nonatomic) NSString *eventUniqueID;
 @property (strong, nonatomic) NSString *eventRecurrenceID;
 @property (strong, nonatomic) NSString *eventSummary;

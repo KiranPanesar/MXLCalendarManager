@@ -70,6 +70,7 @@
             // Refresh the UI on main thread
             dispatch_async( dispatch_get_main_queue(), ^{
                 [calendarView markDates:daysArray];
+                eventsTableView.frame = CGRectMake(0.0f, targetHeight + calendarView.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - targetHeight + calendarView.frame.origin.y);
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             });
         });
@@ -175,7 +176,7 @@
     
     MXLCalendarManager *calendarManager = [[MXLCalendarManager alloc] init];
     
-    [calendarManager scanICSFileAtLocalPath:[[NSBundle mainBundle] pathForResource:@"basic" ofType:@"ics"]
+    [calendarManager scanICSFileAtRemoteURL:[NSURL URLWithString:@"https://www.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics"]
                       withCompletionHandler:^(MXLCalendar *calendar, NSError *error) {
         currentCalendar = [[MXLCalendar alloc] init];
         currentCalendar = calendar;

@@ -96,9 +96,19 @@
 -(NSDate *)dateFromString:(NSString *)dateString {
     dateString = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     dateString = [dateString stringByReplacingOccurrencesOfString:@"Z" withString:@""];
-
+    
     NSDate *date = [dateFormatter dateFromString:dateString];
-
+    
+    if (!date) {
+        dateFormatter.dateFormat = @"yyyyMMdd";
+        date = [dateFormatter dateFromString:dateString];
+        if (date) {
+            self.eventIsAllDay = TRUE;
+        }
+        
+        dateFormatter.dateFormat = @"yyyyMMdd HHmmss";
+    }
+    
     return date;
 }
 

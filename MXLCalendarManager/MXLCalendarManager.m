@@ -175,19 +175,33 @@
             [eventScanner scanUpToString:@"DTSTART:" intoString:nil];
             [eventScanner scanUpToString:@"\n" intoString:&startDateTimeString];
             startDateTimeString = [[startDateTimeString stringByReplacingOccurrencesOfString:@"DTSTART:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            
+            if (!startDateTimeString) {
+                eventScanner = [NSScanner scannerWithString:event];
+                [eventScanner scanUpToString:@"DTSTART;VALUE=DATE:" intoString:nil];
+                [eventScanner scanUpToString:@"\n" intoString:&startDateTimeString];
+                startDateTimeString = [[startDateTimeString stringByReplacingOccurrencesOfString:@"DTSTART;VALUE=DATE:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            }
         }
-
+        
         // Extract end time
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:[NSString stringWithFormat:@"DTEND;TZID=%@:", timezoneIDString] intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&endDateTimeString];
         endDateTimeString = [[endDateTimeString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"DTEND;TZID=%@:", timezoneIDString] withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-
+        
         if (!endDateTimeString) {
             eventScanner = [NSScanner scannerWithString:event];
             [eventScanner scanUpToString:@"DTEND:" intoString:nil];
             [eventScanner scanUpToString:@"\n" intoString:&endDateTimeString];
             endDateTimeString = [[endDateTimeString stringByReplacingOccurrencesOfString:@"DTEND:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            
+            if (!endDateTimeString) {
+                eventScanner = [NSScanner scannerWithString:event];
+                [eventScanner scanUpToString:@"DTEND;VALUE=DATE:" intoString:nil];
+                [eventScanner scanUpToString:@"\n" intoString:&endDateTimeString];
+                endDateTimeString = [[endDateTimeString stringByReplacingOccurrencesOfString:@"DTEND;VALUE=DATE:" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            }
         }
 
         // Extract timestamp
