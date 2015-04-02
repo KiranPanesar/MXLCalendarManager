@@ -83,9 +83,9 @@
         // Set the rest of the properties
         self.eventUniqueID = uniqueID;
         self.eventRecurrenceID  = recurrenceID;
-        self.eventSummary = summary;
-        self.eventDescription = description;
-        self.eventLocation = location;
+        self.eventSummary = [summary stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        self.eventDescription = [description stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        self.eventLocation = [location stringByReplacingOccurrencesOfString:@"\\" withString:@""];
         self.eventStatus = status;
         self.attendees = attendees;
 
