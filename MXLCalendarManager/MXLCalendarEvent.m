@@ -64,7 +64,7 @@
 
         // Set up the shared NSDateFormatter instance to convert the strings to NSDate objects
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:timezoneID]];
+        [dateFormatter setTimeZone:([NSTimeZone timeZoneWithName:timezoneID] ? [NSTimeZone timeZoneWithName:timezoneID] : [NSTimeZone timeZoneForSecondsFromGMT:0])];
 
         [dateFormatter setDateFormat:@"yyyyMMdd HHmmss"];
 
@@ -83,9 +83,9 @@
         // Set the rest of the properties
         self.eventUniqueID = uniqueID;
         self.eventRecurrenceID  = recurrenceID;
-        self.eventSummary = summary;
-        self.eventDescription = description;
-        self.eventLocation = location;
+        self.eventSummary = [summary stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        self.eventDescription = [description stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        self.eventLocation = [location stringByReplacingOccurrencesOfString:@"\\" withString:@""];
         self.eventStatus = status;
         self.attendees = attendees;
 
