@@ -29,7 +29,7 @@
 @implementation MXLCalendar
 
 -(id)init {
-    self = [super self];
+    self = [super init];
     if (self) {
         self.events = [[NSMutableArray alloc] init];
         daysOfEvents = [[NSMutableDictionary alloc] init];

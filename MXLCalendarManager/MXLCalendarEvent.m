@@ -57,7 +57,7 @@
     timeZoneIdentifier:(NSString *)timezoneID
              attendees:(NSArray<MXLCalendarAttendee> *)attendees {
 
-    self = [super self];
+    self = [super init];
 
     if (self) {
         calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -118,7 +118,7 @@
     if (!rule)
         return;
 
-    NSScanner *ruleScanner = [[NSScanner alloc] initWithString:rule];
+    NSScanner *ruleScanner;
 
     NSArray *rulesArray = [rule componentsSeparatedByString:@";"]; // Split up rules string into array
 
