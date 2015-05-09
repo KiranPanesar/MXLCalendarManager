@@ -24,7 +24,10 @@
 //  THE SOFTWARE.
 
 #import "MXLCalendarManager.h"
+
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 @interface MXLCalendarManager ()
 
@@ -35,20 +38,26 @@
 @implementation MXLCalendarManager
 
 -(void)scanICSFileAtRemoteURL:(NSURL *)fileURL withCompletionHandler:(void (^)(MXLCalendar *, NSError *))callback {
+    #if TARGET_OS_IPHONE
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    #endif
 
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *downloadError;
         NSData *fileData = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&downloadError];
 
         if (downloadError) {
+            #if TARGET_OS_IPHONE
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            #endif
             callback(nil, downloadError);
             return;
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            #if TARGET_OS_IPHONE
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            #endif
             NSString *fileString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
             [self parseICSString:fileString withCompletionHandler:callback];
         });
