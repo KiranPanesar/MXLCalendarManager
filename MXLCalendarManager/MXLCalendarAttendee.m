@@ -14,7 +14,7 @@
         commonName: (NSString *) commonName
                uri: (NSString *) uri
 {
-    self = super.self;
+    self = [super init];
     if (self) {
         self.role = role;
         self.commonName = commonName;
