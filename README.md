@@ -5,7 +5,7 @@ A set of classes to parse and handle iCalendar (.ICS) files. The framework can p
 
 Installation
 ---
-The recommended installation is via Cocoapods.
+The recommended installation is via CocoaPods.
 
 ```
 pod 'MXLCalendarManager'
