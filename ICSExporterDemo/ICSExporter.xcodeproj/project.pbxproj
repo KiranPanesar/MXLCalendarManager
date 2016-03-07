@@ -16,9 +16,6 @@
 		6B508BEF171489940080AB4D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B508BEE171489940080AB4D /* Default.png */; };
 		6B508BF1171489940080AB4D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B508BF0171489940080AB4D /* Default@2x.png */; };
 		6B508BF3171489940080AB4D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B508BF2171489940080AB4D /* Default-568h@2x.png */; };
-		6B508C04171489940080AB4D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B508C03171489940080AB4D /* SenTestingKit.framework */; };
-		6B508C05171489940080AB4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B508BDC171489940080AB4D /* UIKit.framework */; };
-		6B508C06171489940080AB4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B508BDE171489940080AB4D /* Foundation.framework */; };
 		6B54AADB171B232800E01601 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B54AADA171B232800E01601 /* MapKit.framework */; };
 		6B54AADD171B232E00E01601 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B54AADC171B232E00E01601 /* QuartzCore.framework */; };
 		6B5E9CC91715B4E400679C47 /* eventlist.ics in Resources */ = {isa = PBXBuildFile; fileRef = 6B5E9CC81715B4E400679C47 /* eventlist.ics */; };
@@ -51,16 +48,6 @@
 		FA9C530E1A402E4200ECFF24 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9C530D1A402E4200ECFF24 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6B508C07171489940080AB4D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6B508BD1171489940080AB4D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6B508BD8171489940080AB4D;
-			remoteInfo = ICSExporter;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		6B508BD9171489940080AB4D /* ICSExporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICSExporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B508BDC171489940080AB4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -75,7 +62,6 @@
 		6B508BEE171489940080AB4D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6B508BF0171489940080AB4D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6B508BF2171489940080AB4D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		6B508C02171489940080AB4D /* ICSExporterTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ICSExporterTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B508C03171489940080AB4D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		6B54AADA171B232800E01601 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6B54AADC171B232E00E01601 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -147,16 +133,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B508BFE171489940080AB4D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6B508C04171489940080AB4D /* SenTestingKit.framework in Frameworks */,
-				6B508C05171489940080AB4D /* UIKit.framework in Frameworks */,
-				6B508C06171489940080AB4D /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -173,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				6B508BD9171489940080AB4D /* ICSExporter.app */,
-				6B508C02171489940080AB4D /* ICSExporterTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,25 +287,6 @@
 			productReference = 6B508BD9171489940080AB4D /* ICSExporter.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6B508C01171489940080AB4D /* ICSExporterTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6B508C17171489940080AB4D /* Build configuration list for PBXNativeTarget "ICSExporterTests" */;
-			buildPhases = (
-				6B508BFD171489940080AB4D /* Sources */,
-				6B508BFE171489940080AB4D /* Frameworks */,
-				6B508BFF171489940080AB4D /* Resources */,
-				6B508C00171489940080AB4D /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6B508C08171489940080AB4D /* PBXTargetDependency */,
-			);
-			name = ICSExporterTests;
-			productName = ICSExporterTests;
-			productReference = 6B508C02171489940080AB4D /* ICSExporterTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -343,9 +299,6 @@
 				TargetAttributes = {
 					6B508BD8171489940080AB4D = {
 						DevelopmentTeam = 8RWU878U56;
-					};
-					6B508C01171489940080AB4D = {
-						DevelopmentTeam = ETXH65XDLQ;
 					};
 				};
 			};
@@ -362,7 +315,6 @@
 			projectRoot = "";
 			targets = (
 				6B508BD8171489940080AB4D /* ICSExporter */,
-				6B508C01171489940080AB4D /* ICSExporterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -383,30 +335,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B508BFF171489940080AB4D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6B508C00171489940080AB4D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6B508BD5171489940080AB4D /* Sources */ = {
@@ -441,22 +370,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B508BFD171489940080AB4D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6B508C08171489940080AB4D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6B508BD8171489940080AB4D /* ICSExporter */;
-			targetProxy = 6B508C07171489940080AB4D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6B508BE5171489940080AB4D /* InfoPlist.strings */ = {
@@ -574,42 +488,6 @@
 			};
 			name = Release;
 		};
-		6B508C18171489940080AB4D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ICSExporter.app/ICSExporter";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ICSExporter/ICSExporter-Prefix.pch";
-				INFOPLIST_FILE = "ICSExporterTests/ICSExporterTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		6B508C19171489940080AB4D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ICSExporter.app/ICSExporter";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ICSExporter/ICSExporter-Prefix.pch";
-				INFOPLIST_FILE = "ICSExporterTests/ICSExporterTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -627,15 +505,6 @@
 			buildConfigurations = (
 				6B508C15171489940080AB4D /* Debug */,
 				6B508C16171489940080AB4D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6B508C17171489940080AB4D /* Build configuration list for PBXNativeTarget "ICSExporterTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6B508C18171489940080AB4D /* Debug */,
-				6B508C19171489940080AB4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
