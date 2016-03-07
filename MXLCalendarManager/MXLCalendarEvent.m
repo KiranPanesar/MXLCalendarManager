@@ -64,7 +64,7 @@
 
         // Set up the shared NSDateFormatter instance to convert the strings to NSDate objects
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:([NSTimeZone timeZoneWithName:timezoneID] ? [NSTimeZone timeZoneWithName:timezoneID] : [NSTimeZone timeZoneForSecondsFromGMT:0])];
+        [dateFormatter setTimeZone:([NSTimeZone timeZoneWithName:timezoneID] ?: [NSTimeZone localTimeZone])];
 
         [dateFormatter setDateFormat:@"yyyyMMdd HHmmss"];
 
