@@ -19,8 +19,6 @@
 		6B508C04171489940080AB4D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B508C03171489940080AB4D /* SenTestingKit.framework */; };
 		6B508C05171489940080AB4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B508BDC171489940080AB4D /* UIKit.framework */; };
 		6B508C06171489940080AB4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B508BDE171489940080AB4D /* Foundation.framework */; };
-		6B508C0E171489940080AB4D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B508C0C171489940080AB4D /* InfoPlist.strings */; };
-		6B508C11171489940080AB4D /* ICSExporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B508C10171489940080AB4D /* ICSExporterTests.m */; };
 		6B54AADB171B232800E01601 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B54AADA171B232800E01601 /* MapKit.framework */; };
 		6B54AADD171B232E00E01601 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B54AADC171B232E00E01601 /* QuartzCore.framework */; };
 		6B5E9CC91715B4E400679C47 /* eventlist.ics in Resources */ = {isa = PBXBuildFile; fileRef = 6B5E9CC81715B4E400679C47 /* eventlist.ics */; };
@@ -79,10 +77,6 @@
 		6B508BF2171489940080AB4D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6B508C02171489940080AB4D /* ICSExporterTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ICSExporterTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B508C03171489940080AB4D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		6B508C0B171489940080AB4D /* ICSExporterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ICSExporterTests-Info.plist"; sourceTree = "<group>"; };
-		6B508C0D171489940080AB4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6B508C0F171489940080AB4D /* ICSExporterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICSExporterTests.h; sourceTree = "<group>"; };
-		6B508C10171489940080AB4D /* ICSExporterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICSExporterTests.m; sourceTree = "<group>"; };
 		6B54AADA171B232800E01601 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6B54AADC171B232E00E01601 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6B5E9CC81715B4E400679C47 /* eventlist.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eventlist.ics; sourceTree = "<group>"; };
@@ -170,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				6B508BE2171489940080AB4D /* ICSExporter */,
-				6B508C09171489940080AB4D /* ICSExporterTests */,
 				6B508BDB171489940080AB4D /* Frameworks */,
 				6B508BDA171489940080AB4D /* Products */,
 			);
@@ -230,25 +223,6 @@
 				6B508BEE171489940080AB4D /* Default.png */,
 				6B508BF0171489940080AB4D /* Default@2x.png */,
 				6B508BF2171489940080AB4D /* Default-568h@2x.png */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		6B508C09171489940080AB4D /* ICSExporterTests */ = {
-			isa = PBXGroup;
-			children = (
-				6B508C0F171489940080AB4D /* ICSExporterTests.h */,
-				6B508C10171489940080AB4D /* ICSExporterTests.m */,
-				6B508C0A171489940080AB4D /* Supporting Files */,
-			);
-			path = ICSExporterTests;
-			sourceTree = "<group>";
-		};
-		6B508C0A171489940080AB4D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6B508C0B171489940080AB4D /* ICSExporterTests-Info.plist */,
-				6B508C0C171489940080AB4D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -363,7 +337,7 @@
 		6B508BD1171489940080AB4D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastTestingUpgradeCheck = 0510;
+				LastTestingUpgradeCheck = 0720;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "MobileX Labs";
 				TargetAttributes = {
@@ -413,7 +387,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B508C0E171489940080AB4D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,7 +445,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B508C11171489940080AB4D /* ICSExporterTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,14 +463,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				6B508BE6171489940080AB4D /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6B508C0C171489940080AB4D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6B508C0D171489940080AB4D /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
