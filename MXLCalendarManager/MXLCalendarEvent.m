@@ -94,20 +94,34 @@
 }
 
 -(NSDate *)dateFromString:(NSString *)dateString {
-    dateString = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-    dateString = [dateString stringByReplacingOccurrencesOfString:@"Z" withString:@""];
+    NSDate *date = nil;
     
-    NSDate *date = [dateFormatter dateFromString:dateString];
+    dateString = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    
+    BOOL containsZone = [string rangeOfString:@"z" options:NSCaseInsensitiveSearch].location != NSNotFound;
+    
+    if (containsZone) {
+        dateFormatter.dateFormat = @"yyyyMMdd HHmmssz";
+    }
+    
+    date = [dateFormatter dateFromString:dateString];
     
     if (!date) {
-        dateFormatter.dateFormat = @"yyyyMMdd";
-        date = [dateFormatter dateFromString:dateString];
-        if (date) {
-            self.eventIsAllDay = TRUE;
+        if (containsZone) {
+            dateFormatter.dateFormat = @"yyyyMMddz";
+        }
+        else {
+            dateFormatter.dateFormat = @"yyyyMMdd";
         }
         
-        dateFormatter.dateFormat = @"yyyyMMdd HHmmss";
+        date = [dateFormatter dateFromString:dateString];
+            
+        if (date) {
+            self.eventIsAllDay = YES;
+        }
     }
+    
+    dateFormatter.dateFormat = @"yyyyMMdd HHmmss";
     
     return date;
 }
