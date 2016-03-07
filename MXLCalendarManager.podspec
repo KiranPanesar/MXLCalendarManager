@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.platform = :ios
   spec.name         = 'MXLCalendarManager'
-  spec.version      = '1.0.2'
+  spec.version      = '1.0.3'
   spec.license      = { :type => 'MIT' }
   spec.homepage     = 'https://github.com/KiranPanesar/MXLCalendarManager'
   spec.authors      = { 'Kiran Panesar' => 'kiransinghpanesar@googlemail.com' }
