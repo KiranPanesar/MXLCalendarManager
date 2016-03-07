@@ -98,7 +98,7 @@
     
     dateString = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     
-    BOOL containsZone = [string rangeOfString:@"z" options:NSCaseInsensitiveSearch].location != NSNotFound;
+    BOOL containsZone = [dateString rangeOfString:@"z" options:NSCaseInsensitiveSearch].location != NSNotFound;
     
     if (containsZone) {
         dateFormatter.dateFormat = @"yyyyMMdd HHmmssz";
