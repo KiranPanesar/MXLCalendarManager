@@ -259,9 +259,13 @@
 
         // Extract event description
         eventScanner = [NSScanner scannerWithString:event];
-        [eventScanner scanUpToString:@"DESCRIPTION:" intoString:nil];
+        [eventScanner scanUpToString:@"DESCRIPTION" intoString:nil];;
+        [eventScanner scanUpToString:@":" intoString:nil];
+        [eventScanner scanString:@":" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&descriptionString];
-        descriptionString = [[[descriptionString stringByReplacingOccurrencesOfString:@"DESCRIPTION:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        descriptionString = [descriptionString stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        descriptionString = [descriptionString stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+        descriptionString = [descriptionString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
 
         // Extract last modified datetime
         eventScanner = [NSScanner scannerWithString:event];
@@ -271,9 +275,13 @@
 
         // Extract the event location
         eventScanner = [NSScanner scannerWithString:event];
-        [eventScanner scanUpToString:@"LOCATION:" intoString:nil];
+        [eventScanner scanUpToString:@"LOCATION" intoString:nil];
+        [eventScanner scanUpToString:@":" intoString:nil];
+        [eventScanner scanString:@":" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&locationString];
-        locationString = [[[locationString stringByReplacingOccurrencesOfString:@"LOCATION:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        locationString = [locationString stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        locationString = [locationString stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+        locationString = [locationString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
 
         // Extract the event sequence
         eventScanner = [NSScanner scannerWithString:event];
@@ -289,9 +297,13 @@
 
         // Extract the event summary
         eventScanner = [NSScanner scannerWithString:event];
-        [eventScanner scanUpToString:@"SUMMARY:" intoString:nil];
+        [eventScanner scanUpToString:@"SUMMARY" intoString:nil];
+        [eventScanner scanUpToString:@":" intoString:nil];
+        [eventScanner scanString:@":" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&summaryString];
-        summaryString = [[[summaryString stringByReplacingOccurrencesOfString:@"SUMMARY:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        summaryString = [summaryString stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        summaryString = [summaryString stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+        summaryString = [summaryString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
 
         // Extract the event transString
         eventScanner = [NSScanner scannerWithString:event];
@@ -328,7 +340,7 @@
             [eventScanner scanUpToString:@"EXDATE;" intoString:nil];
         }
 
-        MXLCalendarEvent *event = [[MXLCalendarEvent alloc] initWithStartDate:startDateTimeString
+        MXLCalendarEvent *calendarEvent = [[MXLCalendarEvent alloc] initWithStartDate:startDateTimeString
                                                                       endDate:endDateTimeString
                                                                     createdAt:createdDateTimeString
                                                                  lastModified:lastModifiedDateTimeString
@@ -343,7 +355,7 @@
                                                                 exceptionRule:exceptionRuleString
                                                            timeZoneIdentifier:timezoneIDString ? timezoneIDString : calendarString
                                                                     attendees:attendees];
-        [calendar addEvent:event];
+        [calendar addEvent:calendarEvent];
 
     }
 

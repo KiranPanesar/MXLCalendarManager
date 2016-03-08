@@ -126,15 +126,15 @@
     return date;
 }
 
--(void)parseRules:(NSString *)rule
+-(void)parseRules:(NSString *)ruleString
           forType:(MXLCalendarEventRuleType)type {
 
-    if (!rule)
+    if (!ruleString)
         return;
 
     NSScanner *ruleScanner;
 
-    NSArray *rulesArray = [rule componentsSeparatedByString:@";"]; // Split up rules string into array
+    NSArray *rulesArray = [ruleString componentsSeparatedByString:@";"]; // Split up rules string into array
 
     NSString *frequency;
     NSString *count;
