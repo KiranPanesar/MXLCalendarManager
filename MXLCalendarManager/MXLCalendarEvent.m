@@ -702,30 +702,37 @@
 - (EKEvent *)convertToEKEventOnDate:(NSDate *)date store:(EKEventStore *)eventStore {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                    fromDate:self.eventStartDate];
-
+    
     NSDateComponents *endComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                       fromDate:self.eventEndDate];
-
+    
     NSDateComponents *selectedDayComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                                               fromDate:date];
-
-    [components setDay:[selectedDayComponents day]];
-    [components setMonth:[selectedDayComponents month]];
-    [components setYear:[selectedDayComponents year]];
-
-    [endComponents setDay:[selectedDayComponents day]];
-    [endComponents setMonth:[selectedDayComponents month]];
-    [endComponents setYear:[selectedDayComponents year]];
-
+    
+    [selectedDayComponents setMinute:components.minute];
+    [selectedDayComponents setHour:components.hour];
+    
+    NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
+    NSDate *newDate = [[NSCalendar currentCalendar] dateFromComponents:selectedDayComponents];
+    
+    _Bool newIsStart = [components day] == [selectedDayComponents day] && [components month] == [selectedDayComponents month] && [components year] == [selectedDayComponents year];
+    
+    if (!newIsStart) {
+        NSTimeInterval deltaTime = [newDate timeIntervalSinceDate:date];
+        [startDate dateByAddingTimeInterval:deltaTime];
+        [endDate dateByAddingTimeInterval:deltaTime];
+    }
+    
     EKEvent *event = [EKEvent eventWithEventStore:eventStore];
     [event setTitle:[self eventSummary]];
     [event setNotes:[self eventDescription]];
     [event setLocation:[self eventLocation]];
     [event setAllDay:[self eventIsAllDay]];
-
-    [event setStartDate:[[NSCalendar currentCalendar] dateFromComponents:components]];
-    [event setEndDate:[[NSCalendar currentCalendar] dateFromComponents:endComponents]];
-
+    
+    [event setStartDate:startDate];
+    [event setEndDate:endDate];
+    
     return event;
 }
 
