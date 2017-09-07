@@ -710,13 +710,7 @@
                                                                               fromDate:date];
 
     if (self.eventIsAllDay) {
-        [components setDay:[selectedDayComponents day]];
-        [components setMonth:[selectedDayComponents month]];
-        [components setYear:[selectedDayComponents year]];
-
         [endComponents setDay:[endComponents day]-1];
-        [endComponents setMonth:[endComponents month]];
-        [endComponents setYear:[endComponents year]];
     }
 
     [selectedDayComponents setMinute:components.minute];
